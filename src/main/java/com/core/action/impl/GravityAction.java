@@ -10,7 +10,7 @@ public class GravityAction implements Action {
 
     @Override
     public void execute(GameObject go) {
-        go.gravitySpeed += go.getGravity();
-        go.getPosition().y += go.gravitySpeed;
+        go.getRigidBody().gravitySpeed += go.getRigidBody().getGravity();
+        go.getPosition().y += go.getRigidBody().gravitySpeed;
     }
 }

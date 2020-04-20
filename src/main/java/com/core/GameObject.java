@@ -3,12 +3,12 @@ package com.core;
 import com.animation.AnimationSystem;
 import com.core.action.Action;
 import com.core.action.impl.GravityAction;
+import com.core.colittion.CollitionSystem;
 import com.core.util.Position;
 
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.Objects;
 
 // TODO agregar algun id ya sea numerico o string para identificar y te sea mas facil saber
@@ -23,20 +23,10 @@ public class GameObject {
   private MovementSystem movementSystem;
   private CollitionSystem collitionSystem;
 
-  private List<GameObject> goColliders;
-
-  protected boolean gravityEnabled;
-  protected float gravity;
-  public float gravitySpeed;
-
-  private int jumpHeight;
 
   // Posicion
   protected Position position;
   protected Position positionDest;
-
-  // Movimientos
-  protected Action currentAction;
 
   private BufferedImage bufferedImage;
 
@@ -47,9 +37,10 @@ public class GameObject {
   protected boolean isAlive;
   public boolean isFalling;
   protected boolean isJumping;
+  private int jumpHeight;
 
   protected Action gravityAction;
-
+  private RigidBody rb;
 
 
   public GameObject() {
@@ -61,8 +52,6 @@ public class GameObject {
     gravityAction = new GravityAction();
     isAlive = true;
     isFalling = true;
-    gravityEnabled = false;
-    gravity = 0.10F;
   }
 
   public void setInitialPosition(Position pos) {
@@ -78,7 +67,7 @@ public class GameObject {
     // update animation
     // TODO Animation
     //animation.update(); // finalidad: actualizar al siguiente indice de la siguiente imagen a mostrar
-    if (hasGravityEnable() && (isFalling ||  isJumping)) {
+    if (rb != null && rb.isGravityEnabled() && (isFalling ||  isJumping)) {
       gravityAction.execute(this);
     }
 
@@ -90,53 +79,13 @@ public class GameObject {
 
   }
 
-  public Rectangle getBoundsTop() {
-    return new Rectangle(
-        (int)position.x,
-        (int)position.y,
-        (int)(width-(width*0.01f)),
-        (int)(height/2)
-    );
-  }
-  public Rectangle getBoundsBottom() {
-    return new Rectangle(
-        (int)position.x,
-        (int)(position.y+(height/2)),
-        (int)(width-(width*0.01f)),
-        (int)(height/2)
-    );
-  }
-
-  public Rectangle getBoundsLeft() {
-    return new Rectangle(
-        (int)position.x,
-        (int)position.y,
-        (int)((int)width*0.15f),
-        (int)height
-    );
-  }
-
-  public Rectangle getBoundsRight() {
-    return new Rectangle(
-        (int) ((int)position.x+(width-(width*0.15f))),
-        (int)position.y,
-        (int) ((int)width*0.15f),
-        (int)height
-    );
-  }
-
   // Getters & Setters
 
-  public Action getCurrentAction() {
-    return currentAction;
-  }
-
-  public void setCurrentAction(Action command) {
-    this.currentAction = command;
-  }
-
-  public void cleanCurrentAction() {
-    this.currentAction = null;
+  public void setBufferedImage(BufferedImage bufferedImage) {
+    Objects.requireNonNull(bufferedImage);
+    this.bufferedImage = bufferedImage;
+    width = bufferedImage.getWidth();
+    height = bufferedImage.getHeight();
   }
 
   public Position getPosition() {
@@ -155,35 +104,8 @@ public class GameObject {
     isAlive = alive;
   }
 
-  public void setBufferedImage(BufferedImage bufferedImage) {
-    Objects.requireNonNull(bufferedImage);
-    this.bufferedImage = bufferedImage;
-    width = bufferedImage.getWidth();
-    height = bufferedImage.getHeight();
-  }
-
   public BufferedImage getBufferedImage() {
     return bufferedImage;
-  }
-
-  public boolean hasGravityEnable() {
-    return gravityEnabled;
-  }
-
-  public void enableGravity() {
-    gravityEnabled = true;
-  }
-
-  public float getGravity() {
-    return gravity;
-  }
-
-  public void setGravity(float gravity) {
-    this.gravity = gravity;
-  }
-
-  public Rectangle getRectangle() {
-    return new Rectangle((int) getPositionDest().getX(), (int) getPositionDest().getY(), width, height);
   }
 
   public int getJumpHeight() {
@@ -210,17 +132,7 @@ public class GameObject {
     return movementSystem;
   }
 
-  public void setMovementSystem(MovementSystem movementSystem) {
-    this.movementSystem = movementSystem;
-  }
-
-  public List<GameObject> getGoColliders() {
-    return goColliders;
-  }
-
-  public void setGoColliders(List<GameObject> goColliders) {
-    this.goColliders = goColliders;
-  }
+  public void setMovementSystem(MovementSystem movementSystem) { this.movementSystem = movementSystem; }
 
   public int getWidth() {
     return width;
@@ -253,4 +165,10 @@ public class GameObject {
   public void setJumping(boolean jumping) {
     isJumping = jumping;
   }
+
+  public void addRigidBody(RigidBody rb) {
+    this.rb = rb;
+  }
+
+  public RigidBody getRigidBody() { return rb; }
 }

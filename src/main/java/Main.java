@@ -1,6 +1,7 @@
 import com.core.GameObject;
 import com.core.GameWorld;
 import com.core.GameScene;
+import com.core.RigidBody;
 import com.core.util.Position;
 import com.image.ImageLoader;
 
@@ -42,10 +43,13 @@ public class Main {
         floorGO.setBufferedImage(floorImg);
         floorGO2.setBufferedImage(floorImg);
 
+        RigidBody rb = new RigidBody();
+        rb.enableGravity();
+        rb.setColliders(Arrays.asList(rockGO, floorGO, floorGO2));
+
         slimeGO.setMoveSpeed(2);
-        slimeGO.enableGravity();
         slimeGO.setJumpHeight(100); // TODO jumping logic
-        slimeGO.setGoColliders(Arrays.asList(rockGO, floorGO, floorGO2));
+        slimeGO.addRigidBody(rb);
 
         // objects added to this map will run in the game loop - update method (update + draw) on each obj
         miEscena.putGameObject("SLIME", slimeGO); // todo crear un field tag o algo para referenciar a los go

@@ -1,12 +1,11 @@
 package com.core;
 
-import static com.core.colittion.CollitionsBox.getBottomCollitionBox;
-import static com.core.colittion.CollitionsBox.getCollitionBox;
-import static com.core.colittion.CollitionsBox.getLeftCollitionBox;
-import static com.core.colittion.CollitionsBox.getRightCollitionBox;
-import static com.core.colittion.CollitionsBox.getTopCollitionBox;
+import static com.core.colittion.CollisionBox.getBottomCollisionBox;
+import static com.core.colittion.CollisionBox.getCollisionBox;
+import static com.core.colittion.CollisionBox.getLeftCollisionBox;
+import static com.core.colittion.CollisionBox.getRightCollisionBox;
+import static com.core.colittion.CollisionBox.getTopCollisionBox;
 
-import com.core.colittion.CollitionsBox;
 import java.awt.*;
 
 public class Drawer {
@@ -26,11 +25,11 @@ public class Drawer {
 //               null
 //        );
         if(ConfigPropertiesEnum.DEBUG_MODE.getValueAsBoolean()){
-            drawRect(getCollitionBox(go), Color.RED);
-            drawRect(getTopCollitionBox(go), Color.BLUE);
-            drawRect(getBottomCollitionBox(go), Color.MAGENTA);
-            drawRect(getRightCollitionBox(go), Color.GREEN);
-            drawRect(getLeftCollitionBox(go), Color.ORANGE);
+            drawRect(getCollisionBox(go), Color.RED);
+            drawRect(getTopCollisionBox(go), Color.BLUE);
+            drawRect(getBottomCollisionBox(go), Color.MAGENTA);
+            drawRect(getRightCollisionBox(go), Color.GREEN);
+            drawRect(getLeftCollisionBox(go), Color.ORANGE);
             drawFPS();
         }
         g.drawImage(go.getBufferedImage(), (int)go.getPosition().getX(), (int)go.getPosition().getY(), null);

@@ -3,9 +3,9 @@ package com.core.colittion;
 import com.core.GameObject;
 import java.awt.Rectangle;
 
-public class CollitionsBox {
+public class CollisionBox {
 
-  public static Rectangle getCollitionBox(GameObject go) {
+  public static Rectangle getCollisionBox(GameObject go) {
     return new Rectangle(
         (int) go.getPosition().x,
         (int) go.getPosition().y,
@@ -13,7 +13,7 @@ public class CollitionsBox {
         go.getHeight());
   }
 
-  public static Rectangle getTopCollitionBox(GameObject go) {
+  public static Rectangle getTopCollisionBox(GameObject go) {
     return new Rectangle(
         (int) go.getPosition().x,
         (int) go.getPosition().y,
@@ -22,7 +22,7 @@ public class CollitionsBox {
     );
   }
 
-  public static Rectangle getBottomCollitionBox(GameObject go) {
+  public static Rectangle getBottomCollisionBox(GameObject go) {
     return new Rectangle(
         (int) go.getPosition().x,
         (int) (go.getPosition().y + (go.getHeight() / 2)),
@@ -31,7 +31,7 @@ public class CollitionsBox {
     );
   }
 
-  public static Rectangle getLeftCollitionBox(GameObject go) {
+  public static Rectangle getLeftCollisionBox(GameObject go) {
     return new Rectangle(
         (int) go.getPosition().x,
         (int) go.getPosition().y,
@@ -40,7 +40,7 @@ public class CollitionsBox {
     );
   }
 
-  public static Rectangle getRightCollitionBox(GameObject go) {
+  public static Rectangle getRightCollisionBox(GameObject go) {
     return new Rectangle(
         (int) ((int) go.getPosition().x + (go.getWidth() - (go.getWidth() * 0.15f))),
         (int) go.getPosition().y,

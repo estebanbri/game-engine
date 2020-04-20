@@ -3,11 +3,10 @@ package com.core;
 import com.animation.AnimationSystem;
 import com.core.action.Action;
 import com.core.action.impl.GravityAction;
-import com.core.colittion.CollitionSystem;
+import com.core.colittion.CollisionSystem;
 import com.core.util.Position;
 
 
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -21,7 +20,7 @@ public class GameObject {
   protected int height;
 
   private MovementSystem movementSystem;
-  private CollitionSystem collitionSystem;
+  private CollisionSystem collisionSystem;
 
 
   // Posicion
@@ -45,7 +44,7 @@ public class GameObject {
 
   public GameObject() {
     movementSystem = new MovementSystem(this);
-    collitionSystem = new CollitionSystem(this);
+    collisionSystem = new CollisionSystem(this);
     animationSystem = new AnimationSystem();
     position = new Position();
     positionDest = new Position();
@@ -73,7 +72,7 @@ public class GameObject {
 
     movementSystem.move();
 
-    collitionSystem.checkCollitions();
+    collisionSystem.checkCollitions();
 
     movementSystem.clearMovements();
 

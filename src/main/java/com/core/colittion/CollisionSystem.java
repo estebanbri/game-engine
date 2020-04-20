@@ -1,18 +1,18 @@
 package com.core.colittion;
 
-import static com.core.colittion.CollitionsBox.getBottomCollitionBox;
-import static com.core.colittion.CollitionsBox.getLeftCollitionBox;
-import static com.core.colittion.CollitionsBox.getRightCollitionBox;
-import static com.core.colittion.CollitionsBox.getTopCollitionBox;
+import static com.core.colittion.CollisionBox.getBottomCollisionBox;
+import static com.core.colittion.CollisionBox.getLeftCollisionBox;
+import static com.core.colittion.CollisionBox.getRightCollisionBox;
+import static com.core.colittion.CollisionBox.getTopCollisionBox;
 
 import com.core.GameObject;
 
-public class CollitionSystem {
+public class CollisionSystem {
 
   private GameObject go;
 
 
-  public CollitionSystem(GameObject go) {
+  public CollisionSystem(GameObject go) {
     this.go = go;
 
   }
@@ -22,16 +22,16 @@ public class CollitionSystem {
       return;
     }
     for (GameObject collider : go.getRigidBody().getColliders()) {
-      if (getRightCollitionBox(go).intersects(getLeftCollitionBox(collider))) {
+      if (getRightCollisionBox(go).intersects(getLeftCollisionBox(collider))) {
         go.getPosition().x = collider.getPosition().x - go.getWidth();
       }
-      if (getLeftCollitionBox(go).intersects(getRightCollitionBox(collider))) {
+      if (getLeftCollisionBox(go).intersects(getRightCollisionBox(collider))) {
         go.getPosition().x = collider.getPosition().x + collider.getWidth() + 0.001F;
       }
-      if (getTopCollitionBox(go).intersects(getBottomCollitionBox(collider))) {
+      if (getTopCollisionBox(go).intersects(getBottomCollisionBox(collider))) {
         go.getPosition().y = collider.getPosition().y + collider.getHeight();
       }
-      if (getBottomCollitionBox(go).intersects(getTopCollitionBox(collider))) {
+      if (getBottomCollisionBox(go).intersects(getTopCollisionBox(collider))) {
         go.getPosition().y = collider.getPosition().y - go.getHeight();
         go.isFalling = false;
         if(go.getRigidBody() != null){

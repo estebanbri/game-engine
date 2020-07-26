@@ -7,6 +7,7 @@ import com.image.ImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Main {
@@ -32,11 +33,18 @@ public class Main {
         slimeGO.setInitialPosition(new Position(100,10));
 
         // Image Loading
-        // TODO cargar la  imagen mediante ruta relativa
-        BufferedImage rockImg = ImageLoader.load("C:\\Users\\esteb\\Desktop\\Proyectos\\game-engine\\src\\main\\resources\\Sprites\\rock.png");
-        BufferedImage slimeImg = ImageLoader.load("C:\\Users\\esteb\\Desktop\\Proyectos\\game-engine\\src\\main\\resources\\Sprites\\slime.png");
-        BufferedImage mucusImg = ImageLoader.load("C:\\Users\\esteb\\Desktop\\Proyectos\\game-engine\\src\\main\\resources\\Sprites\\diamond2.png");
-        BufferedImage floorImg = ImageLoader.load("C:\\Users\\esteb\\Desktop\\Proyectos\\game-engine\\src\\main\\resources\\Sprites\\floor.png");
+        BufferedImage rockImg = null;
+        BufferedImage slimeImg = null;
+        BufferedImage mucusImg = null;
+        BufferedImage floorImg = null;
+        try {
+            slimeImg = ImageLoader.load("Sprites\\slime.png");
+            rockImg = ImageLoader.load("Sprites\\rock.png");
+            mucusImg = ImageLoader.load("Sprites\\diamond2.png");
+            floorImg = ImageLoader.load("Sprites\\floor.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         rockGO.setBufferedImage(rockImg);
         slimeGO.setBufferedImage(slimeImg);
         esmeraldaGO.setBufferedImage(mucusImg);
